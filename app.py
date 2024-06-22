@@ -9,7 +9,6 @@ app = Flask(__name__)
 
 TWILIO_ACCOUNT_SID = 'AC267eb2d53a1a6409a2f8d6b2e324e4fd'
 TWILIO_AUTH_TOKEN = 'c5f303934444ec9179fbff1acdbab10c'
-TWILIO_PHONE_NUMBER = '+15642167867'
 TWILIO_SERVICES_ID = 'VA9640251ab8c925c8b896af7099ff2d65'
 
 
@@ -76,7 +75,7 @@ def hello_world():
 
 if __name__ == '__main__':
     
-    app.run(debug=True, use_reloader=True, reloader_type='stat')
-    #serve(app, host='0.0.0.0', port=8000)
+    #app.run(debug=True, use_reloader=True, reloader_type='stat')
+    serve(app, host='0.0.0.0', port=8000)
     
 
