@@ -4,12 +4,16 @@ from twilio.rest import Client
 from pydantic import BaseModel, ValidationError
 from typing import Optional
 from waitress import serve
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 app = Flask(__name__)
 
-TWILIO_ACCOUNT_SID = 'AC267eb2d53a1a6409a2f8d6b2e324e4fd'
-TWILIO_AUTH_TOKEN = 'c5f303934444ec9179fbff1acdbab10c'
-TWILIO_SERVICES_ID = 'VA9640251ab8c925c8b896af7099ff2d65'
+TWILIO_ACCOUNT_SID = os.getenv('TWILIO_ACCOUNT_SID')
+TWILIO_AUTH_TOKEN = os.getenv('TWILIO_AUTH_TOKEN')
+TWILIO_SERVICES_ID = os.getenv('TWILIO_SERVICES_ID')
 
 
 
