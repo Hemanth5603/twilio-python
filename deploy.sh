@@ -1,12 +1,12 @@
 #!/bin/bash
 
-echo "deleting old app"
+echo "Deleting old app"
 sudo rm -rf /var/www/
 
-echo "creating app folder"
+echo "Creating app folder"
 sudo mkdir -p /var/www/twilio-python-app 
 
-echo "moving files to app folder"
+echo "Moving files to app folder"
 sudo mv  * /var/www/twilio-python-app 
 
 # Navigate to the app directory
@@ -15,19 +15,21 @@ sudo mv env .env
 
 # Update the package list and install Python3, pip, and venv
 sudo apt-get update
-echo "installing python and pip"
+echo "Installing Python and pip"
 sudo apt-get install -y python3 python3-pip python3-venv
 
 # Create a virtual environment
-echo "creating virtual environment"
+echo "Creating virtual environment"
 sudo python3 -m venv venv
 
 # Adjust permissions so the current user can access the virtual environment
+echo "Adjusting virtual environment permissions"
 sudo chown -R $USER:$USER venv
 
 # Activate the virtual environment and install dependencies
-echo "activating virtual environment and installing dependencies"
+echo "Activating virtual environment and installing dependencies"
 source venv/bin/activate
+pip install --upgrade pip setuptools wheel
 pip install -r requirements.txt
 
 # Update and install Nginx if not already installed
@@ -63,6 +65,6 @@ sudo pkill gunicorn
 sudo rm -rf myapp.sock
 
 # Start Gunicorn with the Flask application
-echo "starting gunicorn"
+echo "Starting Gunicorn"
 sudo venv/bin/gunicorn --workers 3 --bind unix:myapp.sock server:app --user www-data --group www-data --daemon
-echo "started gunicorn 🚀"
+echo "Started Gunicorn 🚀"
