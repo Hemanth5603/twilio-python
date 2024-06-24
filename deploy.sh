@@ -20,7 +20,10 @@ sudo apt-get install -y python3 python3-pip python3-venv
 
 # Create a virtual environment
 echo "creating virtual environment"
-python3 -m venv venv
+sudo python3 -m venv venv
+
+# Adjust permissions so the current user can access the virtual environment
+sudo chown -R $USER:$USER venv
 
 # Activate the virtual environment and install dependencies
 echo "activating virtual environment and installing dependencies"
