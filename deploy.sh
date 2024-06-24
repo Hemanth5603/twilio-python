@@ -13,13 +13,19 @@ sudo mv  * /var/www/twilio-python-app
 cd /var/www/twilio-python-app/
 sudo mv env .env
 
+# Update the package list and install Python3, pip, and venv
 sudo apt-get update
 echo "installing python and pip"
-sudo apt-get install -y python3 python3-pip
+sudo apt-get install -y python3 python3-pip python3-venv
 
-# Install application dependencies from requirements.txt
-echo "Install application dependencies from requirements.txt"
-sudo pip install -r requirements.txt
+# Create a virtual environment
+echo "creating virtual environment"
+python3 -m venv venv
+
+# Activate the virtual environment and install dependencies
+echo "activating virtual environment and installing dependencies"
+source venv/bin/activate
+pip install -r requirements.txt
 
 # Update and install Nginx if not already installed
 if ! command -v nginx > /dev/null; then
@@ -53,9 +59,7 @@ fi
 sudo pkill gunicorn
 sudo rm -rf myapp.sock
 
-# # Start Gunicorn with the Flask application
-# # Replace 'server:app' with 'yourfile:app' if your Flask instance is named differently.
-# # gunicorn --workers 3 --bind 0.0.0.0:8000 server:app &
+# Start Gunicorn with the Flask application
 echo "starting gunicorn"
-sudo gunicorn --workers 3 --bind unix:myapp.sock  server:app --user www-data --group www-data --daemon
+sudo venv/bin/gunicorn --workers 3 --bind unix:myapp.sock server:app --user www-data --group www-data --daemon
 echo "started gunicorn 🚀"
