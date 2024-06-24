@@ -79,7 +79,7 @@ def hello_world():
 
 if __name__ == '__main__':
     
-    #app.run(debug=True, use_reloader=True, reloader_type='stat')
-    serve(app, host='0.0.0.0', port=8000)
+    app.run(use_reloader=True, reloader_type='stat')
+    #serve(app, host='0.0.0.0', port=8000)
     
 
